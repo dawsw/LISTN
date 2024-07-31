@@ -1,0 +1,61 @@
+{% extends "template.html" %}
+
+{% block main %}
+<div name="newreleases_container" class="newreleases_container">
+    <div class="results_header">
+        <div class="homepage_header_text">TOP MUSIC</div>
+    </div>
+    <div class="homepage_results_container" id="homepage_topmusic">
+        <div class="homepage_album_row">
+            {% for album in top_songs %}
+            <div class="homepage_album_item">
+                <a href="/album_details?album_id={{ album.album_id }}"><img src='{{ album.image }}' class="homepage_album_image"></a>
+                <div class="homepage_album_title">{{ album.name }}</div>
+                <div class="homepage_album_artist">
+                    {% for artist in album.artist %}
+                        {{ artist }}
+                        {% if not loop.last %}<span>, </span>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div name="spacer" style="height: 30px;"></div>
+<div name="newreleases_container">
+    <div class="results_header">
+        <div class="homepage_header_text">NEW RELEASES</div>
+    </div>
+    <div class="search_results_containerlines" style="border: 0px">
+        <div  class="search_albums_container">
+            {% for album in new_albums %}
+            <div class="album_item">
+                <a href="/album_details?album_id={{ album.album_id }}"><img src='{{ album.image }}' class="single_album_image"></a>
+                <div class="album_title">{{ album.name }}</div>
+                <div class="album_artist">
+                    {% for artist in album.artist %}
+                        {{ artist }}
+                        {% if not loop.last %}<span>, </span>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div name="newreleases_container" class="newreleases_container">
+    <div class="results_header">
+        <div class="homepage_header_text">PLAYLISTS</div>
+    </div>
+    <div class="homepage_results_container" id="homepage_topmusic">
+        <div class="homepage_genre_row">
+            <div style="margin-left: 25px; display:flex">
+                {% for playlist in playlists %}
+                    <a href="/playlists?name={{ playlist['name'] }}&playlist={{ playlist['id'] }}" class="playlistsquare" id="playlistsquare{{ loop.index }}">{{ playlist['name'] }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

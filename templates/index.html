@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<link rel="icon" type="image/png" sizes="32x32" href="static/images/icon32x32.png">
+<title>LISTN - Rate Your Favorite Music</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/static/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <a href='/'><img src="static/images/backarrow1.png" class="backarrow hidden" id="backarrow"></a>
+  <div class="video-container" id="video">
+    <video autoplay muted loop>
+        <source src="static\listnmainpage.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="homesquare">
+    {% if message %}
+    <div class="errormessage" id="message">{{ message }}</div>
+    {% endif %}
+  </div>
+  <div class="container">
+    <img src="static/images/listnn.png" style="margin-bottom: 5px;" class="logo"></img> 
+      <div style="height: 20px"></div>
+        <div class="login_description">rate your favorite music with the world</div>
+          <div style="height: 20px"></div>
+            <div>
+              <button name="login" id="login" onclick="buttonclick(this)">login</button> <button name="register" id="register" onclick="buttonclick(this)" style='margin-left: 25px;'>register</button>
+            </div>
+  </div>
+
+<script src="static\script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+{% extends "template.html" %}
+
+{% block main %}
+
+{% if albums == "Albums not found." %}
+    {% if usernames %}
+        <div class="results_header">
+            <div class="results_header_text">Search Results for: "{{ searched_album }}"</div>
+        </div>
+        <div style='color:grey; margin-left: 2%; margin-top: 30px;'>Users</div>
+        <div class="search_results_containerlines">
+            <div class="search_usernames_container">
+                {% for username in usernames %}
+                    <a href="/profile_user?username={{ username }}" style="text-decoration: none;"><div class="username_item">
+                        <img src="static\images\profileicon.png" style="height:100px; width:100px;">
+                        <div style="color: rgb(219, 219, 219); font-size: 24px; margin-top: 15px;">{{ username }}</div>
+                    </div></a>
+                {% endfor %}
+            </div>
+        </div>
+        <div style='color:grey; margin-left: 2%; margin-top: 30px;'>Albums / Singles</div>
+        <div class="search_results_containerlines"></div>
+        <div class="search_albums_container" style="height:400px"></div>
+    {% else %}
+        <div class="results_header">
+            <div class="results_header_text">No results found for: "{{ searched_album }}"</div>
+        </div>
+        <div class="search_results_containerlines">
+        <div style="height: 800px"></div>
+    {% endif %}
+{% else %}
+    <div class="results_header">
+        <div class="results_header_text">Search Results for: "{{ searched_album }}"</div>
+    </div>
+    {% if usernames %}
+        <div style='color:grey; margin-left: 2%; margin-top: 30px;'>Users</div>
+        <div class="search_results_containerlines">
+            <div class="search_usernames_container">
+                {% for username in usernames %}
+                <a href="/profile_user?username={{ username }}" style="text-decoration: none;"><div class="username_item">
+                    <img src="static\images\profileicon.png" style="height:100px; width:100px;">
+                    <div style="color: rgb(219, 219, 219); font-size: 24px; margin-top: 15px;">{{ username }}</div>
+                </div></a>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if usernames %}
+        <div style='color:grey; margin-left: 2%; margin-top: 30px;'>Albums / Singles</div>
+    {% else %}
+        <div style='color:grey; margin-left: 2%; margin-top: 30px;'>Albums / Singles</div>
+    {% endif %}
+    <div class="search_results_containerlines">
+        {% if albums %}
+            <div class="search_albums_container">
+                {% for album in albums %}
+                <div class="album_item">
+                    <a href="/album_details?album_id={{ album.album_id }}"><img src='{{ album.image }}' class="single_album_image"></a>
+                    <div class="album_title">{{ album.name }}</div>
+                    <div class="album_artist">
+                        {% for artist in album.artist %}
+                            {{ artist }}
+                            {% if not loop.last %}<span>, </span>{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% endblock %}

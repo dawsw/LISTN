@@ -1,0 +1,63 @@
+@font-face {
+    font-family:'Roobert';
+    src: url('RoobertRegular.ttf') format('truetype');
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Roobert', sans-serif;
+    /* background-color: rgb(20, 20, 20); */
+    background-image: linear-gradient(to right, rgb(15, 15, 15), rgb(30, 30, 30)); 
+  }
+  
+  .navlogo {
+    height: 30px; /* Adjust the height of the logo as needed */
+    margin-right: 50px;
+    margin-left: 25px;
+  }
+
+  .navbar.bg-dark {
+    background-color: #0e0d0d !important; /* Dark gray background color */
+}
+
+  .form-control {
+    background-color: #181818 !important;
+  }
+  nav {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+    font-family: 'Roobert', sans-serif;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+    float: left;
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    display: block;
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  
+  nav ul li a:hover {
+    background-color: #555;
+  }
+
+  h1 {
+    background-color: rgb(20, 20, 20);
+    margin: 0; /* Reset margin */   
+}
+
+.footer_container {
+  height: 100px;
+  background-color:#0e0d0d;
+}

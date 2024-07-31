@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+
+{% block main %}
+    <div class="results_header">
+        <div class="results_header_text" style="font-weight: bold;">{{ playlist_name }}</div>
+    </div>
+        {% if tracks %}
+            <div class="search_albums_container">
+                {% for track in tracks %}
+                <div class="album_item">
+                    <a href="/album_details?album_id={{ track.album_id }}"><img src='{{ track.image }}' class="single_album_image"></a>
+                    <div class="album_title">{{ track.name }}</div>
+                    <div class="album_artist">
+                        {% for artist in track.artists %}
+                            {{ artist }}
+                            {% if not loop.last %}<span>, </span>{% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

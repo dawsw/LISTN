@@ -1,0 +1,63 @@
+{% extends "template.html" %}
+
+{% block main %}
+
+    <div style="height:30px"></div>
+    <div class="username_block">
+        <img src="static/images/profileicon.png" class="profileicon">
+        {% if profile_username != current_username %}
+            <span class="username">{{ profile_username }}</span>
+        {% else %}
+            <span class="username">{{username}}</span>
+        {% endif %}
+    </div>
+    <div class="profile_mylistns_header">
+        {% if profile_username == current_username %}
+            <span class="homepage_header_text">MY LISTNs</span>
+        {% else %}
+            <span class="homepage_header_text">LISTNs</span>
+        {% endif %}
+        <span style="margin-left: 5px; color:rgb(87, 87, 87); letter-spacing: 1.5px; font-size: 18px;">({{total_albums}})</span>
+    </div>
+    <div class="profile_results_container">
+        <div class="profile_album_row">
+            {% for album in albums %}
+            <div class="homepage_album_item">
+                <a href="/album_details?album_id={{ album.album_id }}"><img src='{{ album.image }}' class="homepage_album_image"></a>
+                <div class="homepage_album_title">{{ album.name }}</div>
+                <div class="homepage_album_artist">
+                    {% for artist in album.artist %}
+                        {{ artist }}
+                        {% if not loop.last %}<span>, </span>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="profile_mylistns_header">
+        {% if profile_username == current_username %}
+            <span class="homepage_header_text">MY WISHLIST</span>
+        {% else %}
+            <span class="homepage_header_text">WISHLIST</span>
+        {% endif %}
+        <span style="margin-left: 5px; color:rgb(87, 87, 87); letter-spacing: 1.5px; font-size: 18px;">({{wishlist_total_albums}})</span>
+    </div>
+    <div class="profile_results_container">
+        <div class="profile_album_row">
+            {% for album in wishlist_albums %}
+            <div class="homepage_album_item">
+                <a href="/album_details?album_id={{ album.album_id }}"><img src='{{ album.image }}' class="homepage_album_image"></a>
+                <div class="homepage_album_title">{{ album.name }}</div>
+                <div class="homepage_album_artist">
+                    {% for artist in album.artist %}
+                        {{ artist }}
+                        {% if not loop.last %}<span>, </span>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

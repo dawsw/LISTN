@@ -1,0 +1,150 @@
+@font-face {
+    font-family:'Roobert';
+    src: url('RoobertRegular.ttf') format('truetype');
+  }
+  
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    font-family: 'Roobert', sans-serif;
+  }
+
+button {
+    transition-duration: 0.4s;
+    border-radius: 30px;
+    color: rgb(0, 0, 0);
+    border-color: black;
+    height: 50px;
+    width: 175px;
+    font-family: 'Roobert';
+    font-size: 18px;
+    font-weight: bold;
+}
+  
+button:hover {
+    background-color: #d1d1d1;
+    color: white;
+  }
+
+.container {
+  text-align: center;
+}
+
+video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  filter: brightness(40%); 
+}
+
+.homesquare {
+  width: 515px; /* Adjust the width of the square */
+  height: 400px; /* Adjust the height of the square */
+  background-color: hsl(0, 0%, 0%); /* Change the color of the square */
+  border-radius: 75px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter:opacity(65%);
+  z-index: -1;
+  transition: height 0.7s ease, top 0.7s ease;
+}
+
+.login_description
+{
+  height: 30px;
+  color:rgb(255, 255, 255);
+  filter:brightness(50%);
+  letter-spacing: 2px;
+}
+
+.logo {
+  position: relative; /* Set position to relative */
+  top: 0; 
+  width: 375px; /* Set initial width */
+  height: 125px;
+  transition: top 0.7s ease, width 0.7s ease, height 0.7s ease;;
+}
+
+.loginform {
+  position: relative;
+  top: -20px;
+  height: 30px;
+  width: 200px;
+}
+
+.loginform:hover {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.94);
+}
+
+.logindiv {
+  height: 35px;
+}
+
+.loginbutton {
+  position: relative;
+  top: -10px;
+  transition-duration: 0.4s;
+  border-radius: 30px;
+  background-color: rgb(8, 8, 8);
+  color: white;
+  border-color: white;
+  height: 45px;
+  width: 175px;
+  font-family: 'Roobert';
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.loginbutton:hover {
+  background-color: #d1d1d1;
+  color: black;
+}
+
+input { 
+  font-family:'Roobert';
+  font-size: 18px;
+  color: #000000;
+}
+
+.backarrow {
+  width: 40px;
+  margin-left: 30px;
+  margin-top: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.hidden {
+  display:none;
+}
+
+.errormessage {
+  color: red;
+  text-align: center;
+  margin-top: 30px;
+  font-weight: bold;
+}

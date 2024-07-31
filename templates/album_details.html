@@ -1,0 +1,132 @@
+{% extends "template.html" %}
+
+{% block main %}
+<div class= "single_album_background">
+    <div class="single_album_container">
+        <img src="{{ album.image }}" class="single_album_image">
+        <div class="album_info">
+            <span class="single_album_title">{{ album.name }}</span>
+            <div class="album_info_spacer"></div>
+            <div class="single_album_artist">
+                <span>by</span>
+                {% for artist in album.artist %}
+                    <span>{{ artist }}</span>
+                    {% if not loop.last %}<span>, </span>{% endif %}
+                {% endfor %}
+            </div>
+            <div style="height: 20px;"></div>
+            <div class="single_album_release">Release Date: {{ album.release_date }}</div>
+            <div style="height: 22.5px;"></div>
+            <div style="height: 22.5px;"></div>
+            <div class="listn_score_container">
+                <span style="color:white; font-size: 18px;"><img src="static/images/listnn.png" style="width: 60px; height: 20px; margin-bottom: 6px;"> score:</span>
+                {% if listn_score %}
+                    <span class="listn_score" id="listn_score">{{ listn_score }}</span>
+                    {% elif not listn_score %}
+                        <span class="listn_score">N/A</span>
+                        <span class="total_ratings">(based on 0 ratings)</span>
+                {% endif %}
+
+                {% if total_ratings == 1 %}
+                        <span class="total_ratings">(based on {{ total_ratings }} rating)</span>
+                    {% elif total_ratings > 1 %}
+                        <span class="total_ratings">(based on {{ total_ratings }} ratings)</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tracklist-container">
+    <div class="tracklist">
+        <h4 style="color:rgb(105, 105, 105); margin-bottom: 2%; margin-left: 20%; font-size: 18px;">Tracklist</h4> 
+        <div class="complete_tracklist">      
+            {% for track in album.tracks %}
+                <span class="track_number">{{ loop.index }}</span>
+                <span class="track_name">{{ track.name }} 
+                    {% if track.sample_url %}
+                    <span id="sampleplayer">
+                        <audio id="audioPlayer{{ loop.index }}">
+                            <source id="audioSource{{ loop.index }}" src="{{ track.sample_url }}" type="audio/mpeg">
+                        </audio>
+                        <button id="samplebutton{{ loop.index }}" class="samplebutton" onclick="togglePlayPause({{ loop.index }})"><img src="static/images/playbutton1.png" class="samplebuttonimage" id="playpauseimage{{ loop.index }}"></button>
+                        <input type="range" id="volumeSlider{{ loop.index }}" class="volume-slider" min="0" max="100" value="50"  onchange="setVolume({{ loop.index }})" hidden>
+                    </span>
+                    {% endif %}
+                </span>
+                
+                
+            {% endfor %}  
+        </div>     
+    </div>
+
+    <div class="rating_halfpage">
+        <div class="rating_input_box">
+            <form action="/album_details" method="POST">
+                {% if not score %}
+                    <span class="overall_rating_text">Add Rating:</span>
+                {% elif username != current_username %}
+                    <span class="overall_rating_text">{{ username }}'s Rating:</span>
+                {% elif score %}
+                    <span class="overall_rating_text">Your Rating:</span>
+                {% endif %}
+                <span>
+                    {% if not score %}
+                        <input class="scoreinput" name="score" id="score" type="number" min="0" max="100" autocomplete="off" required>
+                    {% elif score %}
+                        <span style="color: white; font-size: 24px; margin-left: 5px;font-weight: bold"id="editscore">{{ score }}</span>
+                    {% endif %}
+                    <span style="color: rgb(173, 173, 173); font-size: 24px; margin-left: 5px; font-weight: bold;">/ 100</span>
+                </span>
+                <div style="height: 15px;"></div> 
+                {% if not comments %}
+                    <textarea class="commentbox" name="comments" rows="10" cols="50" placeholder="comments..." maxlength="1000"></textarea>
+                {% elif comments %}
+                    <textarea class="commentbox" name="comments" rows="10" cols="50" placeholder="comments..." maxlength="1000" readonly>{{ comments }}</textarea>
+                {% endif %}
+                    <div style="height: 30px;"></div>
+                {% if not score %}    
+                    <button class="submit_score" type="submit" id="submitbutton">Submit Rating</button>
+                    {% if in_wishlist == 'No' %}
+                        <button class="submit_score" type="submit" id="wishlistbutton" name="wishlistbutton" style="margin-left: 5%;" onclick="wishlistButton(event)">Add to Wishlist</button>
+                    {% else %}
+                        <button class="submit_score" type="submit" id="wishlistbutton" name="del_wishlistbutton" style="margin-left: 5%;" onclick="wishlistButton(event)">Remove from Wishlist</button>
+                    {% endif %}
+                {% elif current_username == username %}
+                        <button type="button" class="submit_score" id="editbutton">Edit Rating</button>
+                        <span><button class="submit_score" type="submit" id="deletebutton" name="deletebutton" style="margin-left: 5%;">Delete Rating</button></span>
+                {% endif %}
+            </form>
+        </div>
+        <div class="recent_ratings_container">
+            <h4 style="color:rgb(105, 105, 105); margin-left: 5%; margin-top: 40px; text-align: left; font-size: 18px;">Recent Ratings</h4> 
+            <div class="recent_ratings_box">
+                {% if all_ratings %}
+                    <div class="recent_ratings_columnnames">
+                        <span>date</span>
+                        <span>username</span>
+                        <span>score</span>
+                    </div>
+                    {% for row in all_ratings %}
+                        {% if loop.index <= 5 %}
+                            <div class="single_recent_rating"> 
+                                <span style="color:rgb(122, 122, 122); font-size: 12px; margin-top: 5px;">{{ row.timestamp.strftime('%m/%d/%Y') }}</span>
+                                {% if row.username != active_username %}
+                                    <span><a href="/profile_user?username={{ row.username }}" style="color:white; ">{{ row.username }}</a></span>
+                                {% else %}
+                                    <span><a href="/profile" style="color:white; ">{{ row.username }}</a></span>
+                                {% endif %}
+                                <span class="recent_rating_number">{{ row.rating }}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% elif not all_ratings %}
+                    <div class="single_recent_rating"> 
+                        <span style="color:rgb(122, 122, 122); font-size: 12px;"> No Ratings Yet</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>   
+{% endblock %}
