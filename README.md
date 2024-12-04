@@ -19,7 +19,7 @@ Welcome to my music rating web app called **LISTN**! I initially created this as
 [![Demo Video](https://img.youtube.com/vi/tX3eBZrusyw/maxresdefault.jpg)](https://www.youtube.com/watch?v=tX3eBZrusyw)
 
 ## Technologies Used:
-- **Frontend:** JavaScript, CSS
+- **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Python, Flask
 - **Database:** SQLite
 - **APIs:** Spotify API, Spotipy (API for Python)
